@@ -73,7 +73,12 @@ class FlutterAlarmClockPlugin : FlutterPlugin, MethodCallHandler, ActivityAware 
                 }
             }
             call.method.equals("deleteAlarm") -> {
-                deleteAlarm()
+                val title = call.argument<String>("title")
+                if (title != null) {
+                    deleteAlarm(title)
+                } else {
+                    Log.e(TAG, "Title must be provided")
+                }
             }
             else -> {
                 result.notImplemented()

@@ -83,10 +83,12 @@ class FlutterAlarmClock {
   }
 
   ///Delete an alarm
-  static void deleteAlarm() {
+  static void deleteAlarm({String title = ""}) {
     try {
       if (Platform.isAndroid) {
-        _channel.invokeMethod('deleteAlarms');
+        _channel.invokeMethod('deleteAlarms'<String, dynamic>{
+          'title': title,
+        });
       } else {
         throw UnimplementedError;
       }
