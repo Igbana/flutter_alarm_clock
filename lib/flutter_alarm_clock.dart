@@ -81,4 +81,17 @@ class FlutterAlarmClock {
       debugPrint("Error creating a timer.");
     }
   }
+
+  ///Delete an alarm
+  static void deleteAlarm() {
+    try {
+      if (Platform.isAndroid) {
+        _channel.invokeMethod('deleteAlarms');
+      } else {
+        throw UnimplementedError;
+      }
+    } on PlatformException {
+      debugPrint("Error showing alarms.");
+    }
+  }
 }

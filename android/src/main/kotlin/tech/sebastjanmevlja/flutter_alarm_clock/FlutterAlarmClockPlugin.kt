@@ -72,6 +72,9 @@ class FlutterAlarmClockPlugin : FlutterPlugin, MethodCallHandler, ActivityAware 
                     Log.e(TAG, "Length must be provided")
                 }
             }
+            call.method.equals("deleteAlarm") -> {
+                deleteAlarm()
+            }
             else -> {
                 result.notImplemented()
             }
@@ -108,6 +111,7 @@ class FlutterAlarmClockPlugin : FlutterPlugin, MethodCallHandler, ActivityAware 
         i.putExtra(AlarmClock.EXTRA_MINUTES, minutes)
         i.putExtra(AlarmClock.EXTRA_MESSAGE, title)
         i.putExtra(AlarmClock.EXTRA_SKIP_UI, skipUi)
+        i.putExtra(AlarmClock.EXTRA_DAYS, arrayListOf(1,2,3,4,5,6,7))
         activity.startActivity(i)
     }
 
@@ -144,6 +148,11 @@ class FlutterAlarmClockPlugin : FlutterPlugin, MethodCallHandler, ActivityAware 
         } else {
             TODO("VERSION.SDK_INT < O")
         }
+        activity.startActivity(i)
+    }
+    private fun deleteAlarm(title: String? = "") {
+        val i = Intent(AlarmClock.ACTION_DISMISS_ALARM)
+        i.putExtra(AlarmClock.EXTRA_ALARM_SEARCH_MODE_LABEL, title)
         activity.startActivity(i)
     }
 }
